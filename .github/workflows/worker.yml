@@ -11,12 +11,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: '18'
+          bun-version: '1.9.0'
+          profile: false
       - name: Install dependencies
-        run: npm install
+        run: bun install
       - name: Run Worker
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -26,5 +27,5 @@ jobs:
           EMAIL_SERVER_USER: ${{ secrets.EMAIL_SERVER_USER }}
           EMAIL_SERVER_PASSWORD: ${{ secrets.EMAIL_SERVER_PASSWORD }}
 
-        run: npm run start:worker
+        run: bun run start:worker
 
