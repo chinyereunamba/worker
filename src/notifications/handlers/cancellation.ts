@@ -47,11 +47,12 @@ export const businessCancellationEmail = (payload: {
   viewBookingUrl: string;
   cancellationReason?: string;
 }):EmailContent  => {
-  const { appointment, service, viewBookingUrl, cancellationReason } = payload;
+  const { appointment, business, service, cancellationReason } = payload;
+  const viewBookingUrl = `https://biabook.app/booking/${appointment.id}`;
 
   const content = `
     <h2>Booking Cancelled</h2>
-    <p>Hi ${payload.business.name},</p>
+    <p>Hi ${business.name},</p>
     <p>The following booking has been cancelled by the customer:</p>
 
     <div class="details">

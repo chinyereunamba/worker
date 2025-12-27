@@ -49,7 +49,7 @@ export class EmailService {
         return false;
       }
 
-      const from = process.env.EMAIL_FROM ?? "noreply@biabook.example.com";
+      const from = process.env.EMAIL_FROM ?? "no-reply@biabook.com";
       console.log("Sending email:", {
         from,
         to: options.to,
@@ -61,7 +61,7 @@ export class EmailService {
         to: options.to,
         subject: options.subject,
         html: options.html,
-        text: options.text ?? options.html.replace(/<[^>]*>/g, ""), // Strip HTML tags for plain text
+        text: options.text ?? options.html.replace(/<[^>]*>/g, "") ?? "", // Strip HTML tags for plain text
       });
 
       console.log("Email sent successfully to:", options.to);

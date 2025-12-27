@@ -114,12 +114,12 @@ export const bookingReminder2hEmail = async (payload: {
 };
 
 // Booking reminder email with timezone support
-export const bookingReminder30mEmail = async (payload: {
+export const bookingReminder30mEmail = (payload: {
   appointment: Appointment;
   service: Service;
   business: Business;
   businessTimezone?: string;
-}): Promise<EmailContent> => {
+}): EmailContent => {
   let timeDisplay = `${formatTime(
     payload.appointment.startTime
   )} - ${formatTime(payload.appointment.endTime)}`;

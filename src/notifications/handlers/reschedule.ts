@@ -14,23 +14,24 @@ export const bookingRescheduledEmail = (payload: {
   appointment: Appointment;
   service: Service;
   business: Business;
-  cancellationUrl: string;
 }): EmailContent => {
+  const { appointment, service, business } = payload;
+  const cancellationUrl = `https://biabook.app/booking/${appointment.id}/cancel`;
   const content = `
     <h2>Booking Rescheduled</h2>
-    <p>Dear ${payload.appointment.customerName},</p>
-    <p>Your booking with ${payload.business.name} has been rescheduled.</p>
+    <p>Dear ${appointment.customerName},</p>
+    <p>Your booking with ${business.name} has been rescheduled.</p>
     
     <div class="details">
-      <p><strong>Service:</strong> ${payload.service.name}</p>
+      <p><strong>Service:</strong> ${service.name}</p>
       <p><strong>New Date:</strong> ${formatDate(
-        payload.appointment.appointmentDate
+        appointment.appointmentDate
       )}</p>
       <p><strong>New Time:</strong> ${formatTime(
-        payload.appointment.startTime
-      )} - ${formatTime(payload.appointment.endTime)}</p>
+        appointment.startTime
+      )} - ${formatTime(appointment.endTime)}</p>
       <p><strong>Location:</strong> ${
-        payload.business.address ?? "Address not provided"
+        business.address ?? "Address not provided"
       }</p>
     </div>
     
@@ -38,11 +39,11 @@ export const bookingRescheduledEmail = (payload: {
     
     <p>
       <a href="${
-        payload.cancellationUrl
+        cancellationUrl
       }" style="color: #6b7280; text-decoration: underline;">Cancel Booking</a>
     </p>
     
-    <p>Thank you for booking with ${payload.business?.name}!</p>
+    <p>Thank you for booking with ${business?.name}!</p>
   `;
 
   return {

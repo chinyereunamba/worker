@@ -11,12 +11,12 @@ import {
 } from ".";
 import type { EmailContent } from "../../types/notification";
 
-export const bookingConfirmationEmail = async (payload: {
+export const bookingConfirmationEmail = (payload: {
   appointment: Appointment;
   service: Service;
   business: Business;
   businessTimezone?: string;
-}): Promise<EmailContent> => {
+}): EmailContent => {
   const { appointment, business, service, businessTimezone } = payload;
   let timeDisplay = `${formatTime(appointment.startTime)} - ${formatTime(
     appointment.endTime
