@@ -3,7 +3,7 @@ name: Notification Worker
 on:
   schedule:
     - cron: '*/15 * * * *' # every 15 minutes
-  workflow_dispatch:
+  workflow_dispatch: # allows manual trigger
 
 jobs:
   run-worker:
@@ -11,14 +11,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          bun-version: '1.x'
+          node-version: '18'
       - name: Install dependencies
-        run: bun install
+        run: npm install
       - name: Run Worker
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
-        run: bun run start:worker
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_SERVER_HOST: ${{ secrets.EMAIL_SERVER_HOST }}
+          EMAIL_SERVER_PORT: ${{ secrets.EMAIL_SERVER_PORT }}
+          EMAIL_SERVER_USER: ${{ secrets.EMAIL_SERVER_USER }}
+          EMAIL_SERVER_PASSWORD: ${{ secrets.EMAIL_SERVER_PASSWORD }}
+
+        run: npm run start:worker
+
