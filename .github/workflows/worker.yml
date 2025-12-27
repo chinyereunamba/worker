@@ -14,8 +14,8 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: '1.9.0'
-          profile: false
+          bun-version: 'latest'
+        
       - name: Install dependencies
         run: bun install
       - name: Run Worker
@@ -28,4 +28,3 @@ jobs:
           EMAIL_SERVER_PASSWORD: ${{ secrets.EMAIL_SERVER_PASSWORD }}
 
         run: bun run start:worker
-

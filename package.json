@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start:worker": "npm run src/index.ts",
+    "start:worker": "bun run src/index.ts",
     "db:studio": "drizzle-kit studio"
   },
   "name": "service-worker",
